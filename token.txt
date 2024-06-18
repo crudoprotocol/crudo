@@ -768,13 +768,19 @@ abstract contract Ownable is Context {
 
 // File: CRUDOTOKEN.sol
 
-
-pragma solidity 0.8.20;
-
-
-
-
+/**
+ * @title CRUDO
+ * @dev This contract represents an ERC20 token called "CRUDO" with burnable and ownable capabilities.
+ */
+pragma solidity ^0.8.20;
 contract CRUDO  is ERC20, ERC20Burnable, Ownable {
+    
+    /**
+     * @dev Constructs the CRUDO token contract.
+     * @param initialOwner The address of the initial owner of the contract.
+     * The constructor mints 1 billion CRUDO tokens to the deployment address.
+     */
+    
     constructor(address initialOwner)
         ERC20("CRUDO", "crudo")
         Ownable(initialOwner)   
@@ -783,7 +789,16 @@ contract CRUDO  is ERC20, ERC20Burnable, Ownable {
 
     }   
 
-   
+    /**
+     * @dev Renounces the ownership of the contract.
+     * This function can only be called by the current owner of the contract.
+     * Renouncing ownership is an irreversible action, and no one will be able to
+     * perform ownership-related functions once it's renounced.
+     */
+
+    function renounceOwnership() public virtual override onlyOwner{
+        _transferOwnership(address(0));
+    }
 
 
 }
